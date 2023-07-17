@@ -7,3 +7,8 @@
 5. pip install vosk
 6. pip install wheel
 7. pip install pyaudio
+8. pip install beautifulsoup4
+9. pip install google
+
+**#Intro to ML libraries**
+1. pip install pandas

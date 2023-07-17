@@ -1,0 +1,28 @@
+variables:
+  IMAGE_NAME: myImage/demo-app
+  IMAGE_TAG: python-app-1.0
+
+stages:
+  - install
+  - build
+  
+run_install: 
+  image: python:3.9-slim-buster
+  before_script:
+    - pip install pyttsx3 
+    - pip install SpeechRecognition 
+    - pip install pywhatkit
+  script:
+    - python vista.py
+
+build_image:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    -  docker login -u $REGISTRY_USER -p REGISTRY_PASS
+  script: 
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push 
